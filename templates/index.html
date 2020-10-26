@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Odrive Tuner</title>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
+    integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/pretty-please.css') }}">
+</head>
+
+<body>
+  <header class="pretty menu">
+    <a class="pretty text-logo menu-start" href="#">Odrive Go Brr</a>
+  </header>
+  <div>
+    <div class="pretty container">
+      <button id='connect_odrive' class="pretty button">Connect To Odrive</button>
+      <button id='reboot_odrive' class="pretty red button">Reboot Odrive</button>
+    </div>
+  </div>
+  <script src="{{ url_for('static',filename='js/index.js') }}"></script>
+</body>
+
+</html>

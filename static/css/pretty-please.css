@@ -1,0 +1,1116 @@
+/*importing the font we need*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+/*importing the nord color scheme*/
+/*
+ * Copyright (c) 2016-present Arctic Ice Studio <development@arcticicestudio.com>
+ * Copyright (c) 2016-present Sven Greb <development@svengreb.de>
+ *
+ * Project:    Nord
+ * Version:    0.2.0
+ * Repository: https://github.com/arcticicestudio/nord
+ * License:    MIT
+ * References:
+ *   https://www.w3.org/TR/css-variables
+ *   https://www.w3.org/TR/selectors/#root-pseudo
+ *   https://drafts.csswg.org/css-variables
+ *   https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables
+ *   http://warpspire.com/kss
+ *   https://github.com/kss-node/kss-node
+ */
+
+/*
+An arctic, north-bluish color palette.
+Created for the clean- and minimal flat design pattern to achieve a optimal focus and readability for code syntax
+highlighting and UI.
+It consists of a total of sixteen, carefully selected, dimmed pastel colors for a eye-comfortable, but yet colorful
+ambiance.
+
+Styleguide Nord
+*/
+
+:root {
+  /*
+  Base component color of "Polar Night".
+
+  Used for texts, backgrounds, carets and structuring characters like curly- and square brackets.
+
+  Markup:
+  <div style="background-color:#2e3440; width=60; height=60"></div>
+
+  Styleguide Nord - Polar Night
+  */
+  --nord0: #2e3440;
+
+  /*
+  Lighter shade color of the base component color.
+
+  Used as a lighter background color for UI elements like status bars.
+
+  Markup:
+  <div style="background-color:#3b4252; width=60; height=60"></div>
+
+  Styleguide Nord - Polar Night
+  */
+  --nord1: #3b4252;
+
+  /*
+  Lighter shade color of the base component color.
+
+  Used as line highlighting in the editor.
+  In the UI scope it may be used as selection- and highlight color.
+
+  Markup:
+  <div style="background-color:#434c5e; width=60; height=60"></div>
+
+  Styleguide Nord - Polar Night
+  */
+  --nord2: #434c5e;
+
+  /*
+  Lighter shade color of the base component color.
+
+  Used for comments, invisibles, indent- and wrap guide marker.
+  In the UI scope used as pseudoclass color for disabled elements.
+
+  Markup:
+  <div style="background-color:#4c566a; width=60; height=60"></div>
+
+  Styleguide Nord - Polar Night
+  */
+  --nord3: #4c566a;
+
+  /*
+  Base component color of "Snow Storm".
+
+  Main color for text, variables, constants and attributes.
+  In the UI scope used as semi-light background depending on the theme shading design.
+
+  Markup:
+  <div style="background-color:#d8dee9; width=60; height=60"></div>
+
+  Styleguide Nord - Snow Storm
+  */
+  --nord4: #d8dee9;
+
+  /*
+  Lighter shade color of the base component color.
+
+  Used as a lighter background color for UI elements like status bars.
+  Used as semi-light background depending on the theme shading design.
+
+  Markup:
+  <div style="background-color:#e5e9f0; width=60; height=60"></div>
+
+  Styleguide Nord - Snow Storm
+  */
+  --nord5: #e5e9f0;
+
+  /*
+  Lighter shade color of the base component color.
+
+  Used for punctuations, carets and structuring characters like curly- and square brackets.
+  In the UI scope used as background, selection- and highlight color depending on the theme shading design.
+
+  Markup:
+  <div style="background-color:#eceff4; width=60; height=60"></div>
+
+  Styleguide Nord - Snow Storm
+  */
+  --nord6: #eceff4;
+
+  /*
+  Bluish core color.
+
+  Used for classes, types and documentation tags.
+
+  Markup:
+  <div style="background-color:#8fbcbb; width=60; height=60"></div>
+
+  Styleguide Nord - Frost
+  */
+  --nord7: #8fbcbb;
+
+  /*
+  Bluish core accent color.
+
+  Represents the accent color of the color palette.
+  Main color for primary UI elements and methods/functions.
+
+  Can be used for
+    - Markup quotes
+    - Markup link URLs
+
+  Markup:
+  <div style="background-color:#88c0d0; width=60; height=60"></div>
+
+  Styleguide Nord - Frost
+  */
+  --nord8: #88c0d0;
+
+  /*
+  Bluish core color.
+
+  Used for language-specific syntactic/reserved support characters and keywords, operators, tags, units and
+  punctuations like (semi)colons,commas and braces.
+
+  Markup:
+  <div style="background-color:#81a1c1; width=60; height=60"></div>
+
+  Styleguide Nord - Frost
+  */
+  --nord9: #81a1c1;
+
+  /*
+  Bluish core color.
+
+  Used for markup doctypes, import/include/require statements, pre-processor statements and at-rules (`@`).
+
+  Markup:
+  <div style="background-color:#5e81ac; width=60; height=60"></div>
+
+  Styleguide Nord - Frost
+  */
+  --nord10: #5e81ac;
+
+  /*
+  Colorful component color.
+
+  Used for errors, git/diff deletion and linter marker.
+
+  Markup:
+  <div style="background-color:#bf616a; width=60; height=60"></div>
+
+  Styleguide Nord - Aurora
+  */
+  --nord11: #bf616a;
+
+  /*
+  Colorful component color.
+
+  Used for annotations.
+
+  Markup:
+  <div style="background-color:#d08770; width=60; height=60"></div>
+
+  Styleguide Nord - Aurora
+  */
+  --nord12: #d08770;
+
+  /*
+  Colorful component color.
+
+  Used for escape characters, regular expressions and markup entities.
+  In the UI scope used for warnings and git/diff renamings.
+
+  Markup:
+  <div style="background-color:#ebcb8b; width=60; height=60"></div>
+
+  Styleguide Nord - Aurora
+  */
+  --nord13: #ebcb8b;
+
+  /*
+  Colorful component color.
+
+  Main color for strings and attribute values.
+  In the UI scope used for git/diff additions and success visualizations.
+
+  Markup:
+  <div style="background-color:#a3be8c; width=60; height=60"></div>
+
+  Styleguide Nord - Aurora
+  */
+  --nord14: #a3be8c;
+
+  /*
+  Colorful component color.
+
+  Used for numbers.
+
+  Markup:
+  <div style="background-color:#b48ead; width=60; height=60"></div>
+
+  Styleguide Nord - Aurora
+  */
+  --nord15: #b48ead;
+}
+
+
+/****************************
+start normalizationnavigation.css
+*****************************/
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+
+/* Document
+   ========================================================================== */
+
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ */
+
+ html {
+    line-height: 1.15; /* 1 */
+    -webkit-text-size-adjust: 100%; /* 2 */
+  }
+  
+  /* Sections
+     ========================================================================== */
+  
+  /**
+   * Remove the margin in all browsers.
+   */
+  
+  body {
+    margin: 0;
+  }
+  
+  /**
+   * Render the `main` element consistently in IE.
+   */
+  
+  main {
+    display: block;
+  }
+  
+  /**
+   * Correct the font size and margin on `h1` elements within `section` and
+   * `article` contexts in Chrome, Firefox, and Safari.
+   */
+  
+  h1 {
+    font-size: 2em;
+    margin: 1em 0 .0em;
+  }
+  
+  /* Grouping content
+     ========================================================================== */
+  
+  /**
+   * 1. Add the correct box sizing in Firefox.
+   * 2. Show the overflow in Edge and IE.
+   */
+  
+  hr {
+    box-sizing: content-box; /* 1 */
+    height: 0; /* 1 */
+    overflow: visible; /* 2 */
+  }
+  
+  /**
+   * 1. Correct the inheritance and scaling of font size in all browsers.
+   * 2. Correct the odd `em` font sizing in all browsers.
+   */
+  
+  pre {
+    font-family: monospace, monospace; /* 1 */
+    font-size: 1em; /* 2 */
+  }
+  
+  /* Text-level semantics
+     ========================================================================== */
+  
+  /**
+   * Remove the gray background on active links in IE 10.
+   */
+  
+  a {
+    background-color: transparent;
+  }
+  
+  /**
+   * 1. Remove the bottom border in Chrome 57-
+   * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+   */
+  
+  abbr[title] {
+    border-bottom: none; /* 1 */
+    text-decoration: underline; /* 2 */
+    text-decoration: underline dotted; /* 2 */
+  }
+  
+  /**
+   * Add the correct font weight in Chrome, Edge, and Safari.
+   */
+  
+  b,
+  strong {
+    font-weight: bolder;
+  }
+  
+  /**
+   * 1. Correct the inheritance and scaling of font size in all browsers.
+   * 2. Correct the odd `em` font sizing in all browsers.
+   */
+  
+  code,
+  kbd,
+  samp {
+    font-family: monospace, monospace; /* 1 */
+    font-size: 1em; /* 2 */
+  }
+  
+  /**
+   * Add the correct font size in all browsers.
+   */
+  
+  small {
+    font-size: 80%;
+  }
+  
+  /**
+   * Prevent `sub` and `sup` elements from affecting the line height in
+   * all browsers.
+   */
+  
+  sub,
+  sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+  }
+  
+  sub {
+    bottom: -0.25em;
+  }
+  
+  sup {
+    top: -0.5em;
+  }
+  
+  /* Embedded content
+     ========================================================================== */
+  
+  /**
+   * Remove the border on images inside links in IE 10.
+   */
+  
+  img {
+    border-style: none;
+  }
+  
+  /* Forms
+     ========================================================================== */
+  
+  /**
+   * 1. Change the font styles in all browsers.
+   * 2. Remove the margin in Firefox and Safari.
+   */
+  
+  button,
+  input,
+  optgroup,
+  select,
+  textarea {
+    font-family: inherit; /* 1 */
+    font-size: 100%; /* 1 */
+    line-height: 1.15; /* 1 */
+    margin: 0; /* 2 */
+  }
+  
+  /**
+   * Show the overflow in IE.
+   * 1. Show the overflow in Edge.
+   */
+  
+  button,
+  input { /* 1 */
+    overflow: visible;
+  }
+  
+  /**
+   * Remove the inheritance of text transform in Edge, Firefox, and IE.
+   * 1. Remove the inheritance of text transform in Firefox.
+   */
+  
+  button,
+  select { /* 1 */
+    text-transform: none;
+  }
+  
+  /**
+   * Correct the inability to style clickable types in iOS and Safari.
+   */
+  
+  button,
+  [type="button"],
+  [type="reset"],
+  [type="submit"] {
+    -webkit-appearance: button;
+  }
+  
+  /**
+   * Remove the inner border and padding in Firefox.
+   */
+  
+  button::-moz-focus-inner,
+  [type="button"]::-moz-focus-inner,
+  [type="reset"]::-moz-focus-inner,
+  [type="submit"]::-moz-focus-inner {
+    border-style: none;
+    padding: 0;
+  }
+  
+  /**
+   * Restore the focus styles unset by the previous rule.
+   */
+  
+  button:-moz-focusring,
+  [type="button"]:-moz-focusring,
+  [type="reset"]:-moz-focusring,
+  [type="submit"]:-moz-focusring {
+    outline: 1px dotted ButtonText;
+  }
+  
+  /**
+   * Correct the padding in Firefox.
+   */
+  
+  fieldset {
+    padding: 0.35em 0.75em 0.625em;
+  }
+  
+  /**
+   * 1. Correct the text wrapping in Edge and IE.
+   * 2. Correct the color inheritance from `fieldset` elements in IE.
+   * 3. Remove the padding so developers are not caught out when they zero out
+   *    `fieldset` elements in all browsers.
+   */
+  
+  legend {
+    box-sizing: border-box; /* 1 */
+    color: inherit; /* 2 */
+    display: table; /* 1 */
+    max-width: 100%; /* 1 */
+    padding: 0; /* 3 */
+    white-space: normal; /* 1 */
+  }
+  
+  /**
+   * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+   */
+  
+  progress {
+    vertical-align: baseline;
+  }
+  
+  /**
+   * Remove the default vertical scrollbar in IE 10+.
+   */
+  
+  textarea {
+    overflow: auto;
+  }
+  
+  /**
+   * 1. Add the correct box sizing in IE 10.
+   * 2. Remove the padding in IE 10.
+   */
+  
+  [type="checkbox"],
+  [type="radio"] {
+    box-sizing: border-box; /* 1 */
+    padding: 0; /* 2 */
+  }
+  
+  /**
+   * Correct the cursor style of increment and decrement buttons in Chrome.
+   */
+  
+  [type="number"]::-webkit-inner-spin-button,
+  [type="number"]::-webkit-outer-spin-button {
+    height: auto;
+  }
+  
+  /**
+   * 1. Correct the odd appearance in Chrome and Safari.
+   * 2. Correct the outline style in Safari.
+   */
+  
+  [type="search"] {
+    -webkit-appearance: textfield; /* 1 */
+    outline-offset: -2px; /* 2 */
+  }
+  
+  /**
+   * Remove the inner padding in Chrome and Safari on macOS.
+   */
+  
+  [type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+  }
+  
+  /**
+   * 1. Correct the inability to style clickable types in iOS and Safari.
+   * 2. Change font properties to `inherit` in Safari.
+   */
+  
+  ::-webkit-file-upload-button {
+    -webkit-appearance: button; /* 1 */
+    font: inherit; /* 2 */
+  }
+  
+  /* Interactive
+     ========================================================================== */
+  
+  /*
+   * Add the correct display in Edge, IE 10+, and Firefox.
+   */
+  
+  details {
+    display: block;
+  }
+  
+  /*
+   * Add the correct display in all browsers.
+   */
+  
+  summary {
+    display: list-item;
+  }
+  
+  /* Misc
+     ========================================================================== */
+  
+  /**
+   * Add the correct display in IE 10+.
+   */
+  
+  template {
+    display: none;
+  }
+  
+  /**
+   * Add the correct display in IE 10.
+   */
+  
+  [hidden] {
+    display: none;
+  }
+/****************************
+end normalization
+*****************************/
+
+:root{
+/*colors to use in the code important when switching from dark to light mode*/
+--pretty-background: var(--nord0);
+--pretty-text: var(--nord5);
+--pretty-accent: var(--nord8);
+--pretty-background-pop: var(--nord1);
+--pretty-logo-color: var(--nord3);
+--pretty-link-color: var(--nord8);
+/*default transistion*/
+--trasition:all 0.3s ease 0s;
+/*fonts for the website as a whole*/
+font-family: Montserrat, 'Open Sans', sans-serif;
+font-weight: 500;
+font-size: 16px; 
+scroll-behavior: smooth;
+/*color for all text*/
+color: var(--pretty-text);
+
+}
+/*light mode color options*/
+[data-theme="light"] {
+    --pretty-background: var(--nord5);
+    --pretty-text: var(--nord0);
+    --pretty-accent: var(--nord8);
+    --pretty-background-pop: var(--nord4);
+    --pretty-logo-color: var(--nord3);
+    --pretty-link-color: var(--nord10);
+  }
+
+
+body {
+    background-color: var(--pretty-background);
+}
+
+/*default element styles*/
+a, button {
+    cursor: pointer;
+ }
+
+
+/*menu*/
+.pretty.menu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: .5em 1.5em;
+    margin-bottom: 1.5em;
+    background-color: var(--pretty-background-pop);
+}
+
+.pretty.menu-start{
+    margin-right: auto;
+}
+
+.pretty.menu-end{
+    margin-left: auto;
+}
+
+.pretty.menu > *, .pretty.menu nav ul li {
+    padding: 0 1em;
+}
+
+.pretty.menu nav ul {
+     list-style: none;
+ }
+
+.pretty.menu  nav ul li {
+    display: inline-block;
+}
+
+.pretty.menu li, a {
+    color: var(--pretty-text);
+    text-decoration: none;
+    animation: var(--trasition);
+ }
+
+.pretty.menu  nav ul li a:hover{
+    color: var(--pretty-accent);
+}
+
+/*logo*/
+.pretty.text-logo {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--pretty-logo-color);
+}
+
+/*button*/
+.pretty.button{
+    color: var(--pretty-text);
+    font-weight: bold;
+    background-color: var(--pretty-accent);
+    display: inline-block;
+    padding: 0.75em 1.5em;
+    border: none;
+    border-radius: .5em;
+    text-align: center;
+    margin: 0 0.25em 0 0;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.pretty.rounded.button{
+    border-radius: 1em;
+}
+
+.pretty.icon.circular.button > i {
+    width: 2em;
+    height: 2em;
+    vertical-align: middle;
+    line-height: 2em;
+
+}
+
+.pretty.icon.circular.button {
+    border-radius: 50%;
+    padding: 0;
+}
+
+.pretty.red.button{
+    background-color: var(--nord11);
+}
+
+.pretty.green.button{
+    background-color: var(--nord14);
+}
+
+.pretty.orange.button{
+  background-color: var(--nord12);
+}
+
+.pretty.yellow.button{
+  background-color: var(--nord13);
+}
+
+.pretty.purple.button{
+  background-color: var(--nord15);
+}
+
+.pretty.accent.button{
+    background-color: var(--pretty-accent);
+}
+
+.pretty.light.button{
+    color: var(--nord0);
+    background-color: var(--nord5);
+}
+
+.pretty.dark.button{
+    color: var(--nord5);
+    background-color: var(--nord1);
+}
+
+.pretty.transparent.button{
+  background-color: transparent;
+}
+
+.pretty.animated.button{
+    opacity: .8;
+    animation: var(--trasition);
+}
+
+.pretty.animated.button:hover{
+    opacity: 1;
+}
+
+
+.pretty.smallest.button {
+  font-size: 0.4em;
+}
+
+.pretty.smaller.button {
+  font-size: 0.5em;
+}
+
+.pretty.small.button {
+  font-size: 0.75em;
+}
+
+.pretty.big.button {
+  font-size: 1.5em;
+}
+
+.pretty.bigger.button {
+  font-size: 2em;
+}
+
+.pretty.biggest.button {
+  font-size: 4em;
+}
+
+.pretty.chungus.button {
+  font-size: 8em;
+}
+
+
+/*text*/
+.pretty.text {
+    font-size: 1em;
+}
+  
+.pretty.smallest.text {
+    font-size: 0.4em;
+}
+  
+.pretty.smaller.text {
+    font-size: 0.5em;
+}
+
+.pretty.small.text {
+    font-size: 0.75em;
+}
+
+.pretty.big.text {
+    font-size: 1.5em;
+}
+
+.pretty.bigger.text {
+    font-size: 2em;
+}
+
+.pretty.biggest.text {
+    font-size: 4em;
+}
+
+.pretty.chungus.text {
+    font-size: 8em;
+}
+
+/*color*/
+
+.pretty.red.text {
+    color: var(--nord11);
+}
+
+.pretty.blue.text {
+    color: var(--nord8);
+}
+
+.pretty.green.text {
+    color: var(--nord14);
+}
+
+
+.pretty.orange.text{
+  color: var(--nord12);
+}
+
+.pretty.yellow.text{
+  color: var(--nord13);
+}
+
+.pretty.purple.text{
+  color: var(--nord15);
+}
+
+.pretty.accent.text {
+    color: var(--pretty-accent);   
+}
+
+.pretty.light.text {
+    color: var(--nord5);   
+}
+
+.pretty.dark.text {
+    color: var(--nord1);
+}
+
+.pretty.bold.text {
+    font-weight: 700;
+}
+
+/*pretty link*/
+.pretty.link{
+    color: var(--pretty-link-color);
+    text-decoration: underline;
+}
+
+.pretty.animated.link {
+    opacity: .8;
+    animation: var(--trasition);
+}
+
+.pretty.animated.link:hover {
+    opacity: 1;
+}
+
+
+/*containers*/
+.pretty.container {
+  display: block;
+}
+
+/*content adjustment*/
+.pretty.center.container {
+  text-align: center;
+  justify-content: center;
+}
+
+.pretty.right.container {
+  text-align: right;
+}
+
+.pretty.left.container {
+  text-align: left;
+}
+
+.pretty.fluid.contianer {
+  width: auto;
+}
+
+/*Mobile */
+@media (max-width: 750px) {
+  .pretty.container {
+    width: auto;
+    margin-right: 1em;
+    margin-left: 1em;
+  }
+}
+
+/*table*/
+@media screen and (min-width: 751px) and (max-width: 1000px) {
+  /* start of large tablet styles */
+  .pretty.container {
+    width: 650px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+/* Computers*/
+@media screen and (min-width: 1001px) and (max-width: 1500px) {
+  .pretty.container {
+    width: 960px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+/* Big Computers*/
+@media screen and (min-width: 1501px) {
+  .pretty.container {
+    width: 1450px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+
+
+/*hide if on mobile and tables cause itll be too big*/
+@media screen and (max-width: 1000px) {
+  .pretty.small-check {
+      display: none !important;
+  }
+}
+
+/*images*/
+.pretty.image{
+  max-width: 100%;
+  height: auto;
+  display: inline-block;
+  position: relative;
+  background-color: transparent;
+}
+
+.pretty.inline.image {
+  display: inline-block;
+}
+
+.pretty.bottom.inline.image {
+  vertical-align: bottom;
+}
+
+.pretty.top.inline.image {
+  vertical-align: top;
+}
+
+.pretty.middle.inline.image {
+  vertical-align: middle;
+}
+
+.pretty.rounded.image {
+  border-radius: 1em;
+}
+
+.pretty.fluid.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pretty.avatar.image {
+  margin-right: .25em;
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+}
+
+.pretty.smallest.image {
+  width: 30px;
+  height: auto;
+}
+
+.pretty.smaller.image {
+  width: 60px;
+  height: auto;
+}
+
+.pretty.small.image {
+  width: 120px;
+  height: auto;
+}
+
+.pretty.medium.image {
+  width: 240px;
+  height: auto;
+}
+
+.pretty.big.image {
+  width: 480px;
+  height: auto;
+}
+
+.pretty.bigger.image {
+  width: 600px;
+  height: auto;
+}
+
+.pretty.biggest.image {
+  width: 800px;
+  height: auto;
+}
+.pretty.chungus.image {
+  width: 960px;
+  height: auto;
+}
+
+
+/*floting images*/
+
+.pretty.float.left.image {
+  float: left;
+  margin-right: 1em;
+  margin-bottom: 1em;
+}
+
+.pretty.float.right.image {
+  float: right;
+  margin-left: 1em;
+  margin-bottom: 1em;
+}
+
+/*videos*/
+
+video.pretty.video{
+  width: 100%;
+  height: 100%;
+}
+
+
+div.pretty.video{
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+}
+
+.pretty.video iframe{
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/*scroll bar*/
+/*
+ *  STYLE 2
+ */
+
+::-webkit-scrollbar-track
+ {
+  -webkit-box-shadow: inset 0 0 6px var(--pretty-background-pop);
+  box-shadow: inset 0 0 6px var(--pretty-background-pop);
+   border-radius: 8px;
+   background-color: transparent;
+ }
+ 
+::-webkit-scrollbar
+ {
+   width: 6px;
+   height: 6px;
+   background-color: var(--pretty-background-pop);
+ }
+ 
+::-webkit-scrollbar-thumb
+ {
+   border-radius: 8px;
+   background-color: var(--pretty-logo-color);
+ }
+
+
+ /*pretty forms*/
+ input.pretty.input, textarea.pretty.input {
+  max-width: 100%;
+  resize: vertical;
+  padding:.5em;
+  border-radius:.5em;
+  margin: .5em 0;
+  border: 2px solid var(--pretty-text);
+  background-color: transparent;
+  color: var(--pretty-text);
+}
+
+textarea.pretty.input{
+  height:10em
+}
+
+
+.pretty.input::placeholder{ /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--pretty-text);
+  opacity: .5; /* Firefox */
+}
