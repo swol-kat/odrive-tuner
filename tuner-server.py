@@ -49,8 +49,25 @@ def connect_odrive():
     else:
         send('No Odrive Connected')
         
+@socketio.on('erase_config', namespace='/odrive')
+def connect_odrive():
+    global od
+    if od:
+        print('[ODRIVE] Erasing Odrive')
+        try:
+            od.erase_configuration()
+        except:
+            pass
+        od = None
+        send('Odrive Erased')
+    else:
+        send('No Odrive Connected')
 
-
+@socketio.on('read_voltage', namespace='/odrive')
+def connect_odrive():
+    global od
+    if od:
+        emit('disp_voltage', str('%.3f'%(od.vbus_voltage)))
 
 
 

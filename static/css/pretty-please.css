@@ -1114,3 +1114,26 @@ textarea.pretty.input{
   color: var(--pretty-text);
   opacity: .5; /* Firefox */
 }
+
+
+.pretty.logger {
+  height: 200px;
+  max-width: 350px;
+  text-align: right;
+  padding: .5em;
+  font-size: .8em;
+  overflow: auto;
+  border-radius: .5em;
+  background-color: var(--pretty-background-pop);
+}
+
+.pretty.disp {
+  height: auto;
+  width: fit-content;
+  text-align: right;
+  padding: .5em;
+  font-size: .8em;
+  overflow: auto;
+  border-radius: .5em;
+  background-color: var(--pretty-background-pop);
+}
