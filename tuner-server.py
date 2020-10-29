@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO, send, emit
 import odrive
+import json
 
 app = Flask(__name__, static_url_path='')
 app.config['SECRET_KEY'] = 'secret!'
@@ -62,6 +63,20 @@ def connect_odrive():
         send('Odrive Erased')
     else:
         send('No Odrive Connected')
+
+
+@socketio.on('get_config', namespace='/odrive')
+def get_config():
+    global od
+    if od:
+        emit('disp_config', json.dumps(od))
+
+
+@socketio.on('write_config', namespace='/odrive')
+def write_config(json):
+    pass
+
+
 
 @socketio.on('read_voltage', namespace='/odrive')
 def connect_odrive():
