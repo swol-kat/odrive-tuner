@@ -14,24 +14,25 @@
   </header>
   <div>
     <div class="pretty container">
+      <h2> Odrive Basics </h2>
       <button id='connect_odrive' class="pretty button">Connect To Odrive</button>
       <button id='reboot_odrive' class="pretty red button">Reboot Odrive</button>
-      <button id='erase_config' class="pretty red button">Erase Configuration</button>
-      <pre id="log" class="pretty logger" ></pre>
-      <pre id="voltage_disp" class="pretty disp" ></pre>
-      <pre id="current_lim" class="pretty disp" ></pre>
-      <pre id="vel_lim" class="pretty disp" ></pre>
-      <pre id="torque_constant" class="pretty disp" ></pre>
-      <pre id="pos_gain" class="pretty disp" ></pre>
-      <pre id="vel_gain" class="pretty disp" ></pre>
-      <pre id="vel_integrator_gain" class="pretty disp" ></pre>
-      <pre id="requested_state" class="pretty disp" ></pre>
-      <pre id="control_mode" class="pretty disp" ></pre>
-      <pre id="input_pos" class="pretty disp" ></pre>
-      <pre id="input_vel" class="pretty disp" ></pre>
-      <pre id="input_torque" class="pretty disp" ></pre>
+      <pre id="log" class="pretty logger"></pre>
+      <pre id="voltage_disp" class="pretty disp"></pre>
+      <h2> Gains </h2>
+      <button id='get_gains' class="pretty small blue button">Get Gains</button>
+      <button id='set_gains' class="pretty small purple button">Set Gains</button>
+      <div id='gains_disp'></div>
+      <h2> Config </h2>
+      <button id='get_config' class="pretty small blue button">Get Config</button>
+      <button id='set_config' class="pretty small purple button">Set Config</button>
+      <button id='erase_config' class="pretty small red button">Erase Config</button>
+      <div id='config_disp'></div>
+      
 
       <!--do Live Graphs-->
+
+
 
     </div>
   </div>

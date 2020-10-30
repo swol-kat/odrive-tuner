@@ -37,7 +37,7 @@ def connect_odrive():
 
 
 @socketio.on('reboot', namespace='/odrive')
-def connect_odrive():
+def reboot():
     global od
     if od:
         print('[ODRIVE] Rebooting Odrive')
@@ -65,26 +65,57 @@ def connect_odrive():
         send('No Odrive Connected')
 
 
-@socketio.on('get_config', namespace='/odrive')
-def get_config():
-    global od
-    if od:
-        emit('disp_config', json.dumps(od))
-
-
-@socketio.on('write_config', namespace='/odrive')
-def write_config(json):
-    pass
-
-
 
 @socketio.on('read_voltage', namespace='/odrive')
-def connect_odrive():
+def read_voltage():
     global od
     if od:
         emit('disp_voltage', str('%.3f'%(od.vbus_voltage)))
 
+@socketio.on('set_config', namespace='/odrive')
+def set_config(config_data):
+    od.axis0.motor.config.current_lim = config_data['current_lim']
+    od.axis0.controller.config.vel_limit = config_data['vel_lim'] 
+    od.config.brake_resistance = config_data['brake_resistance']
+    od.axis0.motor.config.pole_pairs = config_data['pole_pairs']
+    od.axis0.motor.config.torque_constant = config_data['torque_constant']
+    od.axis0.motor.config.motor_type = config_data['motor_type']
 
+    od.save_configuration()
+    send('Set Config and Saved, Rebooting and Reconnecting')
+    
+    reboot()
+    connect_odrive()
+
+@socketio.on('set_gains', namespace='/odrive')
+def set_gains(data):
+    od.axis0.controller.config.pos_gain = data['pos_gain']
+    od.axis0.controller.config.vel_gain = data['vel_gain']
+    od.axis0.controller.config.vel_integrator_gain = data['vel_integrator_gain']
+    send('Set Gains')
+
+@socketio.on('get_config', namespace='/odrive')
+def get_config():
+    emit('disp_config', {
+            'current_lim' : od.axis0.motor.config.current_lim,
+            'vel_lim' : od.axis0.controller.config.vel_limit,
+            'pole_pairs': od.axis0.motor.config.pole_pairs,
+            'brake_resistance': od.config.brake_resistance,
+            'torque_constant': od.axis0.motor.config.torque_constant,
+            'motor_type': od.axis0.motor.config.motor_type,
+            'cpr': od.axis0.encoder.config.cpr
+            }   
+        )
+
+@socketio.on('get_gains', namespace='/odrive')
+def get_gains():
+    emit('disp_gains', {
+            'pos_gain' : od.axis0.controller.config.pos_gain,
+            'vel_gain' : od.axis0.controller.config.vel_gain,
+            'vel_integrator_gain': od.axis0.controller.config.vel_integrator_gain
+
+            }   
+        )
 
 
 
