@@ -48,6 +48,7 @@ def reboot():
             pass
         od = None
         send('Odrive Rebooted')
+        connect_odrive()
     else:
         send('No Odrive Connected')
 
@@ -86,6 +87,16 @@ def read_voltage():
     global od
     if od:
         emit('disp_voltage', str('%.3f'%(od.vbus_voltage)))
+
+
+@socketio.on('read_voltage', namespace='/odrive')
+def read_voltage():
+    global od
+    if od:
+        emit('disp_voltage', str('%.3f'%(od.vbus_voltage)))
+
+
+
 
 @socketio.on('set_config', namespace='/odrive')
 def set_config(config_data):
