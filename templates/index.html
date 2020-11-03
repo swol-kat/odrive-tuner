@@ -6,6 +6,7 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
     integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/pretty-please.css') }}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js" integrity="sha512-SuxO9djzjML6b9w9/I07IWnLnQhgyYVSpHZx0JV97kGBfTIsUYlWflyuW4ypnvhBrslz1yJ3R+S14fdCWmSmSA==" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -14,29 +15,40 @@
   </header>
   <div>
     <div class="pretty container">
-      <h2> Odrive Basics </h2>
+      <h2> Basics </h2>
+      
       <button id='connect_odrive' class="pretty button">Connect To Odrive</button>
-      <button id='reboot_odrive' class="pretty red button">Reboot Odrive</button>
+      <button id='reboot_odrive' class="pretty red button">Kill Odrive</button>
       <button id='clear_errors' class="pretty green button">Clear Errors</button>
-      <pre id="log" class="pretty logger"></pre>
+      <h3>Errors</h3>
       <pre id="error_disp" class="pretty logger"></pre>
-      <pre id="voltage_disp" class="pretty disp"></pre>
+       
       <h2> Control </h2>
+      <h4>Encoder Value</h4>
       <pre id="enc_disp" class="pretty disp"></pre>
-      <div id='states_disp'></div>
+      <h4>Voltage</h4>
+      <pre id="voltage_disp" class="pretty disp"></pre>
+      <h3>Current State</h3>
       <pre id='current_state' class='pretty disp'></pre>  
-        <div id='axis_state'>
+        <h3>Set Axis State</h3>
+        <div class="pretty grid-3x3" id='axis_state'>
 
         </div>
         <br/>
-        <div id='control_state'>
+        <h3>Set Control State</h3>
+        <div class="pretty grid-3x3" id='control_state'>
           
         </div>
-      <h2> Gains </h2>
+        <br/>
+        <button id='get_inputs' class="pretty small blue button">Get Inputs</button>
+        <button id='set_inputs' class="pretty small purple button">Set Inputs</button>
+        <div id='inputs_disp'></div>
+      <h2> Tuning </h2>
+      <h3>Gains</h3>
       <button id='get_gains' class="pretty small blue button">Get Gains</button>
       <button id='set_gains' class="pretty small purple button">Set Gains</button>
       <div id='gains_disp'></div>
-      <h2> Config </h2>
+      <h3> Config </h3>
       <button id='get_config' class="pretty small blue button">Get Config</button>
       <button id='set_config' class="pretty small purple button">Set Config</button>
       <button id='erase_config' class="pretty small red button">Erase Config</button>
@@ -44,8 +56,25 @@
       
 
       <!--do Live Graphs-->
+      <h2>Graph</h2>
+      <h3>Position</h3>
+      <div style="height: 400px">
+        <canvas id="pos_chart" ></canvas>
+      </div>
+      <h3>Velocity</h3>
+      <div style="height: 400px">
+        <canvas id="vel_chart" ></canvas>
+      </div>
+      <h3>Current</h3>
+      <div style="height: 400px">
+        <canvas id="cur_chart" ></canvas>
+      </div>
 
-        
+      <h3>Log</h3>
+      <pre id="log" class="pretty logger"></pre>
+
+
+
 
 
 

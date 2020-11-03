@@ -41,10 +41,10 @@ CONTROL_MODES = {
 };
 
 function send_axis_state(e) {
-  odrive.emit('set_axis_state',e.target.value)
+  odrive.emit("set_axis_state", e.target.value);
 }
 function send_controller_state(e) {
-  odrive.emit('set_controller_state',e.target.value)
+  odrive.emit("set_controller_state", e.target.value);
 }
 // createing buttons for axis
 function json_to_buttons(el, json, callback) {
@@ -121,7 +121,7 @@ odrive.on("message", (message) => console.log("[ODRIVE]: " + message));
 document
   .getElementById("connect_odrive")
   .addEventListener("click", () => odrive.emit("find_odrive"));
-  document
+document
   .getElementById("clear_errors")
   .addEventListener("click", () => odrive.emit("clear_errors"));
 document
@@ -131,6 +131,9 @@ document
   .getElementById("get_gains")
   .addEventListener("click", () => odrive.emit("get_gains"));
 document
+  .getElementById("get_inputs")
+  .addEventListener("click", () => odrive.emit("get_inputs"));
+document
   .getElementById("get_config")
   .addEventListener("click", () => odrive.emit("get_config"));
 document
@@ -139,6 +142,15 @@ document
     odrive.emit(
       "set_gains",
       form_to_json(document.getElementById("gains_disp_form"))
+    )
+  );
+
+document
+  .getElementById("set_inputs")
+  .addEventListener("click", () =>
+    odrive.emit(
+      "set_inputs",
+      form_to_json(document.getElementById("inputs_disp_form"))
     )
   );
 //setting up axis and control mode buttons
@@ -165,6 +177,9 @@ odrive.on(
 odrive.on("disp_gains", (gains) =>
   json_to_form(document.getElementById("gains_disp"), gains)
 );
+odrive.on("disp_inputs", (inputs) =>
+  json_to_form(document.getElementById("inputs_disp"), inputs)
+);
 odrive.on("disp_config", (config) =>
   json_to_form(document.getElementById("config_disp"), config)
 );
@@ -173,17 +188,16 @@ odrive.on(
   (count) => (document.getElementById("enc_disp").innerHTML = count)
 );
 odrive.on("disp_states", (states) => {
-  disp = document.getElementById('current_state')
-  disp.innerHTML = ''
+  disp = document.getElementById("current_state");
+  disp.innerHTML = "";
   for (let [key, value] of Object.entries(states)) {
-    if (key.includes('axis')){
-        name = AXIS_STATES[value]
-    } else{
-      name = CONTROL_MODES[value]
+    if (key.includes("axis")) {
+      name = AXIS_STATES[value];
+    } else {
+      name = CONTROL_MODES[value];
     }
-    disp.innerHTML = disp.innerHTML + key+ ' : ' + name + '\n'
+    disp.innerHTML = disp.innerHTML + key + " : " + name + "\n";
   }
-  
 });
 
 odrive.on(
@@ -198,11 +212,12 @@ window.setInterval(() => {
   odrive.emit("get_states");
 }, 1000);
 
-//get voltage once a second
+//get data every 20 ms
+timer_start = new Date().getTime();
 window.setInterval(() => {
   odrive.emit("get_enc_count");
-  odrive.emit("")
-}, 20);
+  odrive.emit("get_graph_data");
+}, 5);
 
 json_to_buttons(
   document.getElementById("axis_state"),
@@ -215,3 +230,200 @@ json_to_buttons(
   CONTROL_MODES,
   send_controller_state
 );
+
+// Chart shit
+
+pos_current_data = [];
+pos_setpoint_data = [];
+vel_current_data = [];
+vel_setpoint_data = [];
+cur_current_data = [];
+cur_setpoint_data = [];
+
+var pos_chart = new Chart(
+  document.getElementById("pos_chart").getContext("2d"),
+  {
+    type: "line",
+    data: {
+      datasets: [
+        {
+          label: "current",
+          data: [],
+          type: "line",
+          borderColor: "#d08770",
+        },
+        {
+          label: "setpoint",
+          data: [],
+          type: "line",
+          borderColor: "#a3be8c",
+          // this dataset is drawn on top
+        },
+      ],
+    },
+    options: {
+      elements: {
+        point: {
+          radius: 0,
+        },
+        line: {
+          fill: false,
+          borderWidth: 0,
+          tension: 0,
+        },
+      },
+      animation:{
+        duration: 0
+      },
+      hover: {
+        animationDuration: 0, // duration of animations when hovering an item
+      },
+      responsiveAnimationDuration: 0,
+      scales: {
+        xAxes: [
+          {
+            type: 'linear'
+          },
+        ],
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+    },
+  }
+);
+
+var vel_chart = new Chart(
+  document.getElementById("vel_chart").getContext("2d"),
+  {
+    type: "line",
+    data: {
+      datasets: [
+        {
+          label: "current",
+          data: [],
+          type: "line",
+          borderColor: "#d08770",
+        },
+        {
+          label: "setpoint",
+          data: [],
+          type: "line",
+          borderColor: "#a3be8c",
+          // this dataset is drawn on top
+        },
+      ],
+    },
+    options: {
+      elements: {
+        point: {
+          radius: 0,
+        },
+        line: {
+          fill: false,
+          borderWidth: 0,
+          tension: 0,
+        },
+      },
+      animation:{
+        duration: 0
+      },
+      hover: {
+        animationDuration: 0, // duration of animations when hovering an item
+      },
+      responsiveAnimationDuration: 0,
+      scales: {
+        xAxes: [
+          {
+            type: 'linear'
+          },
+        ],
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+    },
+  }
+);
+
+var cur_chart = new Chart(
+  document.getElementById("cur_chart").getContext("2d"),
+  {
+    type: "line",
+    data: {
+      datasets: [
+        {
+          label: "current",
+          data: [],
+          type: "line",
+          borderColor: "#d08770",
+        },
+        {
+          label: "setpoint",
+          data: [],
+          type: "line",
+          borderColor: "#a3be8c",
+          // this dataset is drawn on top
+        },
+      ],
+    },
+    options: {
+      elements: {
+        point: {
+          radius: 0,
+        },
+        line: {
+          fill: false,
+          borderWidth: 0,
+          tension: 0,
+        },
+      },
+      animation:{
+        duration: 0
+      },
+      hover: {
+        animationDuration: 0, // duration of animations when hovering an item
+      },
+      responsiveAnimationDuration: 0,
+      scales: {
+        xAxes: [
+          {
+            type: 'linear'
+          },
+        ],
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+    },
+  }
+);
+
+odrive.on("disp_graph_data", (d) => {
+  t = new Date().getTime() - timer_start;
+
+  pos_chart.data.datasets[0].data.push({ x: t, y: d.pos_data.current });
+  pos_chart.data.datasets[1].data.push({ x: t, y: d.pos_data.setpoint });
+
+  if (pos_chart.data.datasets[0].data.length > 500) {
+    pos_chart.data.datasets[0].data.shift()
+    pos_chart.data.datasets[1].data.shift()
+  }
+
+  vel_chart.data.datasets[0].data.push({ x: t, y: d.vel_data.current });
+  vel_chart.data.datasets[1].data.push({ x: t, y: d.vel_data.setpoint });
+
+  if (vel_chart.data.datasets[0].data.length > 500) {
+    vel_chart.data.datasets[0].data.shift()
+    vel_chart.data.datasets[1].data.shift()
+  }
+
+  cur_chart.data.datasets[0].data.push({ x: t, y: d.cur_data.current });
+  cur_chart.data.datasets[1].data.push({ x: t, y: d.cur_data.setpoint });
+
+  if (cur_chart.data.datasets[0].data.length > 500) {
+    cur_chart.data.datasets[0].data.shift()
+    cur_chart.data.datasets[1].data.shift()
+  }
+
+  pos_chart.update()
+  vel_chart.update()
+  cur_chart.update()
+});

@@ -48,7 +48,6 @@ def reboot():
             pass
         od = None
         send('Odrive Rebooted')
-        connect_odrive()
     else:
         send('No Odrive Connected')
 
@@ -108,12 +107,14 @@ def set_config(config_data):
         od.axis0.motor.config.pole_pairs = config_data['pole_pairs']
         od.axis0.motor.config.torque_constant = config_data['torque_constant']
         od.axis0.motor.config.motor_type = config_data['motor_type']
+        od.axis0.encoder.config.cpr = config_data['cpr']
+
 
         od.save_configuration()
         send('Set Config and Saved, Rebooting and Reconnecting')
-        
         reboot()
         connect_odrive()
+        
 
 @socketio.on('set_gains', namespace='/odrive')
 def set_gains(data):
@@ -123,6 +124,16 @@ def set_gains(data):
         od.axis0.controller.config.vel_gain = data['vel_gain']
         od.axis0.controller.config.vel_integrator_gain = data['vel_integrator_gain']
         send('Set Gains')
+
+
+
+@socketio.on('set_inputs', namespace='/odrive')
+def set_inputs(data):
+    global od
+    if od:
+        od.axis0.controller.input_pos = data['input_pos']
+        od.axis0.controller.input_vel = data['input_vel']
+        od.axis0.controller.input_torque = data['input_torque']
 
 @socketio.on('get_config', namespace='/odrive')
 def get_config():
@@ -174,6 +185,18 @@ def get_state():
         }
         emit('disp_states',packet)
 
+
+@socketio.on('get_inputs', namespace='/odrive')
+def get_inputs():
+    global od
+    if od:
+        packet = {
+            'input_pos': od.axis0.controller.input_pos,
+            'input_vel': od.axis0.controller.input_vel,
+            'input_torque': od.axis0.controller.input_torque
+        }
+        emit('disp_inputs', packet)
+
 @socketio.on('set_axis_state', namespace='/odrive')
 def set_axis_state(state):
     global od
@@ -181,12 +204,36 @@ def set_axis_state(state):
         print(f'[ODRIVE] set axis state to : {state}')
         od.axis0.requested_state = state
 
+
+
 @socketio.on('set_controller_state', namespace='/odrive')
 def set_controller_state(state):
     global od
     if od:
         print(f'[ODRIVE] set controller state to : {state}')
         od.axis0.controller.config.control_mode = state
+
+@socketio.on('get_graph_data', namespace='/odrive')
+def get_data():
+    global od
+    if od:
+        packet = {
+            'pos_data': {
+                'current': od.axis0.encoder.pos_estimate,
+                'setpoint': od.axis0.controller.pos_setpoint
+            },
+            'vel_data': {
+                'current': od.axis0.encoder.vel_estimate,
+                'setpoint': od.axis0.controller.vel_setpoint
+            },
+            'cur_data': {
+                'current': od.axis0.motor.current_control.Iq_measured,
+                'setpoint': od.axis0.motor.current_control.Iq_setpoint
+            }
+        }
+
+        emit('disp_graph_data',packet)
+
 
 if __name__ == '__main__':
     print('[INFO] Starting server at http://localhost:6969')
