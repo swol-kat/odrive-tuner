@@ -249,7 +249,7 @@ def get_data():
 @socketio.on('save_motor_data', namespace='/odrive')
 def save_motor_data(msg):
     global data_store
-    f = open(f'data/{msg}_data.json', 'w')
+    f = open(f'data/json/{msg}_data.json', 'w')
     f.write(json.dumps(data_store))
     f.close()
     send('saved data')
