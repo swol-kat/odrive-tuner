@@ -17,8 +17,20 @@
       <h2> Odrive Basics </h2>
       <button id='connect_odrive' class="pretty button">Connect To Odrive</button>
       <button id='reboot_odrive' class="pretty red button">Reboot Odrive</button>
+      <button id='clear_errors' class="pretty green button">Clear Errors</button>
       <pre id="log" class="pretty logger"></pre>
+      <pre id="error_disp" class="pretty logger"></pre>
       <pre id="voltage_disp" class="pretty disp"></pre>
+      <h2> Control </h2>
+      <pre id="enc_disp" class="pretty disp"></pre>
+      <div id='states_disp'></div>
+      <pre id='current_state' class='pretty disp'></pre>  
+        <div id='axis_state'>
+
+        </div>
+        <div id='control_state'>
+          
+        </div>
       <h2> Gains </h2>
       <button id='get_gains' class="pretty small blue button">Get Gains</button>
       <button id='set_gains' class="pretty small purple button">Set Gains</button>
