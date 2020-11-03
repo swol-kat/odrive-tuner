@@ -3,12 +3,20 @@ from flask_socketio import SocketIO, send, emit
 import odrive
 from helper.utils import dump_errors
 import json
+import time
 
 app = Flask(__name__, static_url_path='')
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
+data_store = []
 
 od = None
+
+def get_millis():
+    return int(round(time.time() * 1000))
+
+time_start = get_millis()
+
 #serving html
 @app.route('/', methods=['GET'])
 def index():
@@ -127,6 +135,7 @@ def set_gains(data):
 
 
 
+
 @socketio.on('set_inputs', namespace='/odrive')
 def set_inputs(data):
     global od
@@ -216,8 +225,11 @@ def set_controller_state(state):
 @socketio.on('get_graph_data', namespace='/odrive')
 def get_data():
     global od
+    global time_start
+    global data_store
     if od:
         packet = {
+            'time' : get_millis() - time_start,
             'pos_data': {
                 'current': od.axis0.encoder.pos_estimate,
                 'setpoint': od.axis0.controller.pos_setpoint
@@ -231,9 +243,23 @@ def get_data():
                 'setpoint': od.axis0.motor.current_control.Iq_setpoint
             }
         }
-
+        data_store.append(packet)
         emit('disp_graph_data',packet)
 
+@socketio.on('save_motor_data', namespace='/odrive')
+def save_motor_data(msg):
+    global data_store
+    f = open(f'data/{msg}_data.json', 'w')
+    f.write(json.dumps(data_store))
+    f.close()
+    send('saved data')
+
+@socketio.on('reset_motor_data', namespace='/odrive')
+def save_motor_data():
+    global data_store
+    global time_start
+    data_store = []
+    time_start = get_millis
 
 if __name__ == '__main__':
     print('[INFO] Starting server at http://localhost:6969')

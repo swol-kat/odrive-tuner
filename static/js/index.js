@@ -137,6 +137,15 @@ document
   .getElementById("get_config")
   .addEventListener("click", () => odrive.emit("get_config"));
 document
+  .getElementById("save_motor_data")
+  .addEventListener("click", () => {
+    msg = prompt('What should this test be saved as?\n Files will get saved as <what you enter>_data.json\n don\'t enter spaces pls.', 'Velocity_Test_1')
+    odrive.emit("save_motor_data" , msg);
+  });
+document
+  .getElementById("reset_motor_data")
+  .addEventListener("click", () => odrive.emit("reset_motor_data"));
+document
   .getElementById("set_gains")
   .addEventListener("click", () =>
     odrive.emit(
@@ -213,11 +222,10 @@ window.setInterval(() => {
 }, 1000);
 
 //get data every 20 ms
-timer_start = new Date().getTime();
 window.setInterval(() => {
   odrive.emit("get_enc_count");
   odrive.emit("get_graph_data");
-}, 5);
+}, 20);
 
 json_to_buttons(
   document.getElementById("axis_state"),
@@ -272,8 +280,8 @@ var pos_chart = new Chart(
           tension: 0,
         },
       },
-      animation:{
-        duration: 0
+      animation: {
+        duration: 0,
       },
       hover: {
         animationDuration: 0, // duration of animations when hovering an item
@@ -282,7 +290,7 @@ var pos_chart = new Chart(
       scales: {
         xAxes: [
           {
-            type: 'linear'
+            type: "linear",
           },
         ],
       },
@@ -324,8 +332,8 @@ var vel_chart = new Chart(
           tension: 0,
         },
       },
-      animation:{
-        duration: 0
+      animation: {
+        duration: 0,
       },
       hover: {
         animationDuration: 0, // duration of animations when hovering an item
@@ -334,7 +342,7 @@ var vel_chart = new Chart(
       scales: {
         xAxes: [
           {
-            type: 'linear'
+            type: "linear",
           },
         ],
       },
@@ -376,8 +384,8 @@ var cur_chart = new Chart(
           tension: 0,
         },
       },
-      animation:{
-        duration: 0
+      animation: {
+        duration: 0,
       },
       hover: {
         animationDuration: 0, // duration of animations when hovering an item
@@ -386,7 +394,7 @@ var cur_chart = new Chart(
       scales: {
         xAxes: [
           {
-            type: 'linear'
+            type: "linear",
           },
         ],
       },
@@ -397,33 +405,32 @@ var cur_chart = new Chart(
 );
 
 odrive.on("disp_graph_data", (d) => {
-  t = new Date().getTime() - timer_start;
-
+  t = d.time;
   pos_chart.data.datasets[0].data.push({ x: t, y: d.pos_data.current });
   pos_chart.data.datasets[1].data.push({ x: t, y: d.pos_data.setpoint });
 
   if (pos_chart.data.datasets[0].data.length > 500) {
-    pos_chart.data.datasets[0].data.shift()
-    pos_chart.data.datasets[1].data.shift()
+    pos_chart.data.datasets[0].data.shift();
+    pos_chart.data.datasets[1].data.shift();
   }
 
   vel_chart.data.datasets[0].data.push({ x: t, y: d.vel_data.current });
   vel_chart.data.datasets[1].data.push({ x: t, y: d.vel_data.setpoint });
 
   if (vel_chart.data.datasets[0].data.length > 500) {
-    vel_chart.data.datasets[0].data.shift()
-    vel_chart.data.datasets[1].data.shift()
+    vel_chart.data.datasets[0].data.shift();
+    vel_chart.data.datasets[1].data.shift();
   }
 
   cur_chart.data.datasets[0].data.push({ x: t, y: d.cur_data.current });
   cur_chart.data.datasets[1].data.push({ x: t, y: d.cur_data.setpoint });
 
   if (cur_chart.data.datasets[0].data.length > 500) {
-    cur_chart.data.datasets[0].data.shift()
-    cur_chart.data.datasets[1].data.shift()
+    cur_chart.data.datasets[0].data.shift();
+    cur_chart.data.datasets[1].data.shift();
   }
 
-  pos_chart.update()
-  vel_chart.update()
-  cur_chart.update()
+  pos_chart.update();
+  vel_chart.update();
+  cur_chart.update();
 });
