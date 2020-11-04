@@ -259,7 +259,7 @@ def save_motor_data():
     global data_store
     global time_start
     data_store = []
-    time_start = get_millis
+    time_start = get_millis()
 
 if __name__ == '__main__':
     print('[INFO] Starting server at http://localhost:6969')
