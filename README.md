@@ -1,2 +1,2 @@
 # odrive-tuner
-![](/full-odrive-tuner.jpg?raw=true)
+![](/full-odrive-tuner.png?raw=true)
